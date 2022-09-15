@@ -1,0 +1,38 @@
+#include "FastCRC.h"
+
+#include <iostream>
+
+
+int main(int argc,char **argv){
+
+	uint8_t data_t[7] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00};
+
+	uint8_t data_t0[12] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00,0xb8,0x09,0x01,0x06,0x00};
+	uint8_t data_t1[12] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00,0xb8,0x09,0x01,0x06,0x01};
+	uint8_t data_t2[12] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00,0xb8,0x09,0x01,0x06,0x02};
+	uint8_t data_t3[12] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00,0xb8,0x09,0x01,0x06,0x03};
+	uint8_t data_t4[12] = {0xAA,0x01,0x10,0x00,0x00,0x00,0x00,0xb8,0x09,0x01,0x06,0x04};
+
+	
+	FastCRC16 crc16(0x4c49);
+
+	uint16_t crc16_value =  crc16.mcrf4xx_calc(data_t,7);
+
+        std::cout << std::hex << crc16_value << std::endl;
+
+	FastCRC32 crc32(0x564f580a);
+
+	uint32_t crc32_value0 =  crc32.crc32_calc(data_t0,12);
+	uint32_t crc32_value1 =  crc32.crc32_calc(data_t1,12);
+	uint32_t crc32_value2 =  crc32.crc32_calc(data_t2,12);
+	uint32_t crc32_value3 =  crc32.crc32_calc(data_t3,12);
+	uint32_t crc32_value4 =  crc32.crc32_calc(data_t4,12);
+
+        std::cout <<"crc32_value-0600:0x"<< std::hex << crc32_value0 << std::endl;
+        std::cout <<"crc32_value-0601:0x"<< std::hex << crc32_value1 << std::endl;
+        std::cout <<"crc32_value-0602:0x"<< std::hex << crc32_value2 << std::endl;
+        std::cout <<"crc32_value-0603:0x"<< std::hex << crc32_value3 << std::endl;
+        std::cout <<"crc32_value-0604:0x"<< std::hex << crc32_value4 << std::endl;
+
+	return 0;
+}
